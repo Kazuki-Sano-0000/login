@@ -1,0 +1,30 @@
+<html>
+<body>
+<form action="" method="post" enctype="multipart/form-data">
+  画像プレビュー
+  <input type="file" name="upload_file" id="upload_file" class="data file" />
+  <br /><br />
+  <span id="preview_area"></span>  
+  <br /><br />
+  <input type="submit" value="送信" />
+</form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script>
+  $('#upload_file').on('change', function(){ // 解説①
+    var strFileInfo = $(upload_file)[0].files[0]; // 解説②
+    if(strFileInfo && strFileInfo.type.match('image.*')){ // 解説③
+
+      $('#preview').remove();  // 解説④
+      $('#preview_area').append('<img id="preview" width="300" />'); // 解説⑤
+
+      fileReader = new FileReader(); // 解説⑥
+      fileReader.onload = function(event){
+        $('#preview').attr('src', event.target.result);
+      }
+
+      fileReader.readAsDataURL(strFileInfo); // 解説⑦
+    }
+  });
+</script>
+    </body>
+</html>
